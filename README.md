@@ -26,6 +26,37 @@ Silly weekend playaround to reduce some time spent with tinder :-)
 
 4. make sure to stop it when you're out of your free likes running `clearInterval(intervalTimer);`
 
+## Tampermonkey-Script
+
+```js
+// ==UserScript==
+// @name         Tinder Autoliker
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Give everybody a like :-)
+// @author       You
+// @match        https://tinder.com/app/recs
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+        let likeCounter = 95;
+    const doLike = () => {
+        const likeBtn = document.querySelector("button[data-testid='gamepadLike']");
+        if (likeBtn) {
+        likeBtn.click();
+        likeCounter++;
+        console.log(`Liked: ${likeCounter}`);
+        }
+    };
+    setTimeout(() => {
+        const intervalTimer = setInterval(doLike, 1500);
+    }, 5000);
+})();
+```
+
 ## Disclaimer
 
 Tinder is constantly working on the UI, hence the Xpaths to the button might change. The script would always work with updated Xpaths though.
