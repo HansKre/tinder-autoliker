@@ -33,7 +33,7 @@ Silly weekend playaround to reduce some time spent with tinder :-)
 // @name         Tinder Autoliker
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Give everybody a like :-)
+// @description  try to take over the world!
 // @author       You
 // @match        https://tinder.com/app/recs
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
@@ -42,13 +42,13 @@ Silly weekend playaround to reduce some time spent with tinder :-)
 
 (function() {
     'use strict';
-        let likeCounter = 95;
+    let likeCounter = 0;
     const doLike = () => {
         const likeBtn = document.querySelector("button[data-testid='gamepadLike']");
         if (likeBtn) {
-        likeBtn.click();
-        likeCounter++;
-        console.log(`Liked: ${likeCounter}`);
+            likeBtn.click();
+            likeCounter++;
+            console.log(`Liked: ${likeCounter}`);
         }
     };
     setTimeout(() => {
