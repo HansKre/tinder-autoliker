@@ -31,7 +31,7 @@ const LOCALSTORAGE_KEY = 'likeCounter';
     let picBtnCreated = false;
     let autolikeTimeout = null;
 
-    function handleMessagesUrl(){
+    function addLargePicBtn(){
         console.log('Adding Large Pic Btn and Unmatch Confirmer...');
         function createPicBtn(){
             /*function createPicBtnStyles() {
@@ -67,26 +67,27 @@ const LOCALSTORAGE_KEY = 'likeCounter';
             button.className = "button Lts($ls-s) Z(0) CenterAlign Mx(a) Cur(p) Tt(u) Ell Bdrs(100px) Px(24px) Px(20px)--s Py(0) Mih(40px) Pos(r) Ov(h) C(#fff) Bg($c-pink):h::b Bg($c-pink):f::b Bg($c-pink):a::b Trsdu($fast) Trsp($background) Bg($g-ds-background-brand-gradient) button--primary-shadow StyledButton Bxsh($bxsh-btn) Fw($semibold) focus-button-style Mb(16px) As(fe)";
             button.id = 'picbtn';
             button.onclick = function(){
-                const multiPicsProfile = document.querySelector("body > div > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-divider\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div.Pos\\(r\\).D\\(f\\).Ai\\(c\\).Fxd\\(c\\).Flx\\(\\$flx1\\)--ml.Maw\\(100\\%\\)\\!--ml.Ov\\(h\\).Expand.H\\(--recs-card-height\\)--ml.Maw\\(--recs-card-width\\)--ml.Mah\\(fc\\)--ml > div > div > div.react-aspect-ratio-placeholder > span > div > div.CenterAlign.D\\(f\\).Fxd\\(r\\).W\\(100\\%\\).Px\\(8px\\).Pos\\(a\\).TranslateZ\\(0\\)");
-                const singlePicProfile = document.querySelector("body > div > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-divider\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div.Pos\\(r\\).D\\(f\\).Ai\\(c\\).Fxd\\(c\\).Flx\\(\\$flx1\\)--ml.Maw\\(100\\%\\)\\!--ml.Ov\\(h\\).Expand.H\\(--recs-card-height\\)--ml.Maw\\(--recs-card-width\\)--ml.Mah\\(fc\\)--ml > div > div > div.react-aspect-ratio-placeholder > span > div > div > span > div > div");
-                if (multiPicsProfile) {
-                    [...multiPicsProfile.children].forEach((child, i) => {
-                        const found = [...child.classList].find(a => a === 'bullet--active');
-                        if (found) {
-                            const urlStr = document.querySelector(`body > div > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-divider\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div.Pos\\(r\\).D\\(f\\).Ai\\(c\\).Fxd\\(c\\).Flx\\(\\$flx1\\)--ml.Maw\\(100\\%\\)\\!--ml.Ov\\(h\\).Expand.H\\(--recs-card-height\\)--ml.Maw\\(--recs-card-width\\)--ml.Mah\\(fc\\)--ml > div > div > div.react-aspect-ratio-placeholder > span > div > div.profileCard__slider.Pos\\(a\\).W\\(100\\%\\).H\\(100\\%\\).D\\(f\\).Ov\\(h\\).Us\\(n\\).keen-slider > span:nth-child(${i + 1}) > div > div`).style.backgroundImage
-                            const url = urlStr.slice(5, urlStr.length - 2);
-                            window.open(url, '_blank').focus();
-                        }
-                    });
-                } else if (singlePicProfile) {
-                    const urlStr = document.querySelector(`body > div > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-divider\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div.Pos\\(r\\).D\\(f\\).Ai\\(c\\).Fxd\\(c\\).Flx\\(\\$flx1\\)--ml.Maw\\(100\\%\\)\\!--ml.Ov\\(h\\).Expand.H\\(--recs-card-height\\)--ml.Maw\\(--recs-card-width\\)--ml.Mah\\(fc\\)--ml > div > div > div.react-aspect-ratio-placeholder > span > div > div.profileCard__slider.Pos\\(a\\).W\\(100\\%\\).H\\(100\\%\\).D\\(f\\).Ov\\(h\\).Us\\(n\\).keen-slider > span:nth-child(1) > div > div`).style.backgroundImage
+                const isMultiPicsProfile = !!document.querySelector("body div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-ds-divider-primary\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div > div > div > div.react-aspect-ratio-placeholder > span > div > div.CenterAlign.D\\(f\\).Fxd\\(r\\).W\\(100\\%\\).Px\\(8px\\).Pos\\(a\\).Iso\\(i\\)");
+                const profileCard = document.querySelector("body div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-ds-divider-primary\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div > div > div");
+                if (isMultiPicsProfile && profileCard) {
+                    const urlStr = profileCard.querySelector(`span[aria-hidden=false] div[role=img] `).style.backgroundImage;
+                    const url = urlStr.slice(5, urlStr.length - 2);
+                    window.open(url, '_blank').focus();
+                } else if (profileCard) {
+                    const urlStr = document.querySelector("body div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-ds-divider-primary\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div > div > div > div.react-aspect-ratio-placeholder > span > div > div > span > div > div").style.backgroundImage;
                     const url = urlStr.slice(5, urlStr.length - 2);
                     window.open(url, '_blank').focus();
                 } else {
                     console.log('Could not find any pics');
                 }
             };
-            document.querySelector("body > div > div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-divider\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div.Pos\\(r\\).D\\(f\\).Ai\\(c\\).Fxd\\(c\\).Flx\\(\\$flx1\\)--ml.Maw\\(100\\%\\)\\!--ml.Ov\\(h\\).Expand.H\\(--recs-card-height\\)--ml.Maw\\(--recs-card-width\\)--ml.Mah\\(fc\\)--ml > div > div > div.Bgc\\(\\#fff\\).Fxg\\(1\\).Z\\(1\\).Pb\\(16px\\)--ml.Pb\\(60px\\) > div.D\\(f\\).Jc\\(sb\\).Us\\(n\\).Px\\(16px\\).Py\\(10px\\) > div > div.My\\(2px\\).C\\(\\$c-base\\).Us\\(t\\).D\\(f\\).Ai\\(b\\).Maw\\(90\\%\\)").appendChild(button);
+            const intervalId = setInterval(() => {
+                const parent = document.querySelector("div > div.App__body.H\\(100\\%\\).Pos\\(r\\).Z\\(0\\) > div > main > div.H\\(100\\%\\) > div > div > div > div.BdStart.Bdc\\(\\$c-ds-divider-primary\\).Fxg\\(0\\).Fxs\\(0\\).Fxb\\(1\\/3\\).Miw\\(325px\\).Maw\\(640px\\).D\\(n\\)--m > div > div > div > div > div.Bgc\\(\\$c-ds-background-primary\\).Fxg\\(1\\).Z\\(1\\).Pb\\(16px\\)--ml.Pb\\(60px\\) > div.D\\(f\\).Jc\\(sb\\).Us\\(n\\).Px\\(16px\\).Py\\(10px\\)");
+                if (parent) {
+                    parent.appendChild(button);
+                    clearInterval(intervalId);
+                }
+            }, 1000);
         };
         // Select the node that will be observed for mutations
         var targetNode = document.querySelector('body');
@@ -119,6 +120,11 @@ const LOCALSTORAGE_KEY = 'likeCounter';
 
         // Start observing the target node for configured mutations
         observer.observe(targetNode, config);
+
+        // TODO: make sure that btn is added not only on first navigation, but also when changing the person
+        setTimeout(() => {
+            createPicBtn();
+            picBtnCreated = true;}, 1000);
     }
 
     function doAutolike() {
@@ -153,9 +159,9 @@ const LOCALSTORAGE_KEY = 'likeCounter';
         return !!URLS_AUTOLIKE.find(URL_AUTOLIKE => url.startsWith(URL_AUTOLIKE));
     }
 
-    // detect first loaded page
+    // detect current page-url
     if (window.location.href.startsWith(URL_MESSAGES)) {
-        handleMessagesUrl();
+        addLargePicBtn();
     } else if (isAutolikeUrl(window.location.href)) {
         doAutolike();
     }
@@ -170,6 +176,7 @@ const LOCALSTORAGE_KEY = 'likeCounter';
             picBtnCreated = false;
             if (info.url.startsWith(URL_MESSAGES)) {
                 console.log('navigated to messages');
+                addLargePicBtn();
             } else if (isAutolikeUrl(info.url)) {
                 doAutolike();
             }
